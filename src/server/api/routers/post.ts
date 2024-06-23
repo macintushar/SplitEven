@@ -16,6 +16,12 @@ export const postRouter = createTRPCRouter({
       };
     }),
 
+  hi: publicProcedure.query(() => {
+    return {
+      greeting: "Hi",
+    };
+  }),
+
   create: publicProcedure
     .input(z.object({ name: z.string().min(1) }))
     .mutation(async ({ input }) => {
