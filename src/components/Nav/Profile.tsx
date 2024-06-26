@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +12,7 @@ import { getUserData, handleSignOut } from "./actions";
 import { useToast } from "../ui/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useEffect, useState } from "react";
-import { User } from "@supabase/supabase-js";
+import type { User } from "@supabase/supabase-js";
 
 export default function Profile() {
   const [userData, setUserData] = useState<User>();
@@ -48,10 +46,8 @@ export default function Profile() {
   }
 
   useEffect(() => {
-    getUser();
-  }, []);
-
-  console.log(userData);
+    void getUser();
+  });
 
   return (
     <DropdownMenu>
@@ -63,7 +59,7 @@ export default function Profile() {
           {userData?.user_metadata?.name || "Mac"}
         </Button> */}
         <Avatar className="flex items-center justify-center text-center">
-          <AvatarImage src={userData?.user_metadata?.avatar_url} />
+          <AvatarImage src={userData?.user_metadata?.avatar_url as string} />
 
           <AvatarFallback>
             {userData?.user_metadata?.name || "Mac"}

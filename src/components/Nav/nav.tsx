@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -14,14 +13,6 @@ import {
   Settings,
   Users,
 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   Tooltip,
   TooltipContent,
@@ -93,18 +84,22 @@ export default function Nav({ children }: { children: React.ReactNode }) {
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-4">
           <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="#"
-                  className="text-muted-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8"
-                >
-                  <Settings className="h-5 w-5" />
-                  <span className="sr-only">Settings</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Settings</TooltipContent>
-            </Tooltip>
+            {bottomNavItems.map((bottomNavItem) => (
+              <Tooltip key={bottomNavItem.link}>
+                <TooltipTrigger asChild>
+                  <Link
+                    href={bottomNavItem.link}
+                    className="text-muted-foreground hover:text-foreground flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8"
+                  >
+                    <bottomNavItem.icon className="h-5 w-5" />
+                    <span className="sr-only">{bottomNavItem.text}</span>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  {bottomNavItem.text}
+                </TooltipContent>
+              </Tooltip>
+            ))}
           </TooltipProvider>
         </nav>
       </aside>
